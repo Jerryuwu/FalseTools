@@ -1,0 +1,35 @@
+plugins {
+    id 'java'
+}
+
+group 'de.falsedeveloping'
+version '1.0.0'
+
+repositories {
+    maven {
+        url 'https://papermc.io/repo/repository/maven-public/'
+    }
+}
+
+dependencies {
+    compileOnly 'com.destroystokyo.paper:paper-api:1.16.4-R0.1-SNAPSHOT'
+}
+
+task copyPluginToTestserver(dependsOn: ['copyPluginToExport'], type: Copy) {
+    from "${buildDir}/libs"
+    into "C:\\Users\\jerom\\Desktop\\TestServer\\plugins"
+}
+task copyPluginToExport(dependsOn: ['build'], type: Copy) {
+    from "${buildDir}/libs"
+    into "export"
+}
+
+compileJava {
+    sourceCompatibility = '1.8'
+    targetCompatibility = '1.8'
+}
+compileJava.options.encoding = 'UTF-8'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
